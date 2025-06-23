@@ -1,0 +1,54 @@
+{
+  // Optional schema for auto-completion in editors
+  "$schema": "node_modules/wrangler/config-schema.json",
+
+  // Your project name
+  "name": "backend",
+
+  // Entry point of your Worker
+  "main": "src/index.ts",
+
+  // Required compatibility date (set to today or your deployment date)
+  "compatibility_date": "2025-06-08",
+
+  // Optional compatibility flags
+  // "compatibility_flags": [
+  //   "nodejs_compat"
+  // ],
+
+  // ✅ Environment variables (not secure, okay for testing or public values)
+  "vars": {
+    "DATABASE_URL":"",
+    "JWT_SECRET":  ""
+  },
+
+  // Optional: If using KV, R2, D1, AI, etc.
+  // "kv_namespaces": [
+  //   {
+  //     "binding": "MY_KV_NAMESPACE",
+  //     "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  //   }
+  // ],
+  // "r2_buckets": [
+  //   {
+  //     "binding": "MY_BUCKET",
+  //     "bucket_name": "my-bucket"
+  //   }
+  // ],
+  // "d1_databases": [
+  //   {
+  //     "binding": "MY_DB",
+  //     "database_name": "my-database",
+  //     "database_id": ""
+  //   }
+  // ],
+  // "ai": {
+  //   "binding": "AI"
+  // },
+
+  // Optional observability
+  // "observability": {
+  //   "enabled": true,
+  //   "head_sampling_rate": 1
+  // }
+}
