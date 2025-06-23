@@ -1,5 +1,4 @@
-// components/TextEditor.tsx
-import React from "react";
+
 
 interface TextEditorProps {
   content: string;

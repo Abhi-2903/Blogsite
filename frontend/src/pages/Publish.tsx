@@ -1,5 +1,5 @@
 // pages/Publish.tsx
-import React, { useState } from "react";
+import{ useState } from "react";
 import { AppBar } from "../components/AppBar";
 import { TextEditor } from "../components/TextEditor";
 import { useNavigate } from "react-router-dom";

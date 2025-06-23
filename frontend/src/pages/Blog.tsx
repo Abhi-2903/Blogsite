@@ -1,4 +1,3 @@
-import React from 'react'
 import { useBlog } from '../hooks'
 import { useParams } from 'react-router-dom';
 import { FullBlog } from '../components/FullBlog';
@@ -17,8 +16,7 @@ export const Blog = () => {
   );
   return (
     <div>
-      
-<FullBlog blog={blog}/>
+      {blog && <FullBlog blog={blog} />}
     </div>
   )
 }

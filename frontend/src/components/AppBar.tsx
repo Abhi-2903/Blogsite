@@ -1,4 +1,3 @@
-import React from 'react';
 import { Avatar } from './BlogCard';
 import { Link, useLocation } from 'react-router-dom';
 

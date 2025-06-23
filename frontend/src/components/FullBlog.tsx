@@ -1,4 +1,3 @@
-import React from "react";
 import { AppBar } from "./AppBar";
 import type { Blog } from "../hooks";
 import { Avatar } from "./BlogCard";
