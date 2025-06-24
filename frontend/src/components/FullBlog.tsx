@@ -1,7 +1,7 @@
 import { AppBar } from "./AppBar";
 import type { Blog } from "../hooks";
 import { Avatar } from "./BlogCard";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 
@@ -22,7 +22,7 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
       });
 
       alert("Blog deleted successfully!");
-      navigate("/");
+      navigate("/blog");
     } catch (err) {
       console.error("Delete failed:", err);
       alert("Error deleting blog");
