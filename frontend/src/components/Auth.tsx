@@ -22,7 +22,9 @@ export const Auth = ({ type }: { type: 'signup' | 'signin' }) => {
         postInputs
       );
       const jwt = response.data.token;
+      const userId = response.data.user.id
       localStorage.setItem('token', jwt);
+      localStorage.setItem('userId', userId);
       navigate('/blog');
     } catch (e: any) {
       alert(e.response?.data?.message || 'Something went wrong');

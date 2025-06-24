@@ -2,11 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { BACKEND_URL } from "../config";
 
-// ✅ Correct interface name: Blog (not Blogs)
 export interface Blog {
   content: string;
+  authorId: number;
   title: string;
   id: number;
+  publishedAt: string;
   author: {
     name: string;
   };

@@ -27,6 +27,7 @@ const authMiddleware= async (c, next) => {
 
     await next();
   } catch (err) {
+    
     console.error("JWT verification failed:", err);
     c.status(403);
     return c.json({ msg: "You are not logged in" });
@@ -99,16 +100,20 @@ if(!success){
 });
 
 // Get all blogs
-blogRouter.get("/bulk", async (c) => {
+blogRouter.get("/bulk",authMiddleware, async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
 
   try {
     const blogs = await prisma.blog.findMany({
+      orderBy: {
+        publishedAt: "desc"
+      },
       select:{
         content: true,
         title: true,
+        authorId: true,
         id: true,
         author:{
           select:{
@@ -127,7 +132,7 @@ blogRouter.get("/bulk", async (c) => {
 });
 
 // Get single blog by ID
-blogRouter.get("/:id", async (c) => {
+blogRouter.get("/:id", authMiddleware,async (c) => {
   const id = c.req.param("id");
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
@@ -140,6 +145,8 @@ blogRouter.get("/:id", async (c) => {
         id: true,
         title: true,
         content: true,
+        authorId: true,
+        publishedAt: true,
         author:{
           select:{
             name: true
@@ -159,5 +166,28 @@ blogRouter.get("/:id", async (c) => {
     console.error("Fetching blog failed:", e);
     c.status(500);
     return c.json({ msg: "Error fetching blog post" });
+  }
+});
+// Delete blog post
+blogRouter.delete("/:id", authMiddleware, async (c) => {
+  const id = c.req.param("id");
+
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  try {
+    await prisma.blog.delete({
+      where: {
+        id: Number(id),
+      },
+    });
+
+    return c.json({ msg: "Blog deleted successfully" });
+  } catch (e) {
+    //@ts-ignore
+    console.error("Deleting blog failed:", e);
+    c.status(500);
+    return c.json({ msg: "Error deleting blog post" });
   }
 });

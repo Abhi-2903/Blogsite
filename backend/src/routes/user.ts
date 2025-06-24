@@ -42,7 +42,12 @@ if(!success){
       },
       c.env.JWT_SECRET
     );
-    return c.json({ token: jwt });
+return c.json({
+  token: jwt,
+  user: {
+    id: user.id
+  }
+});
 
   } catch (e: any) {
     if (e.code === "P2002") {
@@ -85,7 +90,13 @@ if(!success){
       },
       c.env.JWT_SECRET
     );
-return c.json({ token: jwt });
+return c.json({
+  token: jwt,
+  user: {
+    id: user.id
+  }
+});
+
   } catch (e) {
     c.status(500);
     return c.text("An unexpected error occurred during signin");
