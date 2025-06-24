@@ -1,7 +1,9 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { SignupInput } from '@abhimanyu-2903/medium-common';
 import axios from 'axios';
-// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 import React, { useState, ChangeEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BACKEND_URL } from '../config';
@@ -26,6 +28,8 @@ export const Auth = ({ type }: { type: 'signup' | 'signin' }) => {
       localStorage.setItem('token', jwt);
       localStorage.setItem('userId', userId);
       navigate('/blog');
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
     } catch (e: any) {
       alert(e.response?.data?.message || 'Something went wrong');
     }
@@ -62,7 +66,7 @@ export const Auth = ({ type }: { type: 'signup' | 'signin' }) => {
 
           <LabelledInput
             label='Username'
-            placeholder='abhimanyu_2903'
+            placeholder='example@gmail.com'
             onChange={(e) =>
               setPostInputs({ ...postInputs, username: e.target.value })
             }
