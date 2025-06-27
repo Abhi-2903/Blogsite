@@ -2,6 +2,7 @@ import { useBlog } from '../hooks'
 import { useParams } from 'react-router-dom';
 import { FullBlog } from '../components/FullBlog';
 import { BlogSkeleton } from '../components/blogSkeleton';
+import { Footer } from '../components/Footer';
 
 export const Blog = () => {
       const {id} = useParams();
@@ -17,6 +18,7 @@ export const Blog = () => {
   return (
     <div>
       {blog && <FullBlog blog={blog} />}
+      <Footer/>
     </div>
   )
 }
