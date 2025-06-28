@@ -26,16 +26,13 @@ export const BlogCard = ({
       </div>
 
       <Link to={`/blog/${id}`}>
-      {/* Title */}
       <div className="text-xl font-semibold text-gray-900 cursor-pointer">{title}</div>
       </Link>
 
-      {/* Content Preview */}
       <div className="text-sm font-light text-gray-800 leading-relaxed">
         {content.slice(0, 100) + "..."}
       </div>
 
-      {/* Read time */}
       <div className="text-xs text-slate-500 pt-2">
         {`${Math.ceil(content.length / 100)} minute(s) read`}
       </div>

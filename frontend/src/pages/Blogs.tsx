@@ -1,14 +1,11 @@
 import { BlogCard } from '../components/BlogCard'
-import { AppBar } from '../components/AppBar'
 import { useBlogs } from '../hooks'
 import { BlogsSkeleton } from '../components/BlogsSkeleton'
-import { Footer } from '../components/Footer'
 
 export const Blogs = () => {
   const {loading,blogs}=useBlogs();
   if(loading){
     return <div>
-<AppBar/>
 <div className='flex justify-center'>
   <div >
 
@@ -21,7 +18,6 @@ export const Blogs = () => {
     </div>
   }
   return (<div>
-<AppBar/>
     <div className='flex justify-center'>
     <div className=' max-w-xl'>
      
@@ -35,7 +31,6 @@ export const Blogs = () => {
       
       </div>
       </div>
-      <Footer/>
       </div>
   )
 }

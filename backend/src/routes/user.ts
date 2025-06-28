@@ -1,7 +1,6 @@
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { Hono } from "hono";
-import { env } from "hono/adapter";
 import { sign } from "../jwt";
 //@ts-ignore
 import {signinInput, signupInput} from "@abhimanyu-2903/medium-common"
@@ -45,7 +44,8 @@ if(!success){
 return c.json({
   token: jwt,
   user: {
-    id: user.id
+    id: user.id,
+    name:user.name
   }
 });
 
@@ -93,7 +93,8 @@ if(!success){
 return c.json({
   token: jwt,
   user: {
-    id: user.id
+    id: user.id,
+    name: user.name
   }
 });
 

@@ -1,4 +1,4 @@
-import { Avatar } from './BlogCard';
+import { AvatarDropdown } from './AvatarDropDown';
 import { Link, useLocation } from 'react-router-dom';
 
 export const AppBar = () => {
@@ -19,10 +19,7 @@ export const AppBar = () => {
             </button>
           </Link>
         )}
-
-        <button className="cursor-pointer border-2 border-transparent hover:outline hover:outline-2 hover:outline-black/30 rounded-full transition duration-200">
-          <Avatar size="big" name="Abhimanyu" />
-        </button>
+        <AvatarDropdown/>
       </div>
     </div>
   );

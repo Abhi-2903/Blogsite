@@ -13,7 +13,7 @@ export const Footer = () => {
 
         <div className="flex gap-4">
           <a
-            href="https://github.com/https://Abhi-2903"
+            href="https://github.com/Abhi-2903"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-gray-400"

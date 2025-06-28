@@ -1,4 +1,3 @@
-import { AppBar } from "./AppBar";
 import type { Blog } from "../hooks";
 import { Avatar } from "./BlogCard";
 import {  useNavigate } from "react-router-dom";
@@ -31,7 +30,6 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
 
   return (
     <div className="min-h-screen bg-white text-black">
-      <AppBar />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex flex-col lg:flex-row gap-8">

@@ -25,8 +25,10 @@ export const Auth = ({ type }: { type: 'signup' | 'signin' }) => {
       );
       const jwt = response.data.token;
       const userId = response.data.user.id
+      const name = response.data.user.name
       localStorage.setItem('token', jwt);
       localStorage.setItem('userId', userId);
+localStorage.setItem("name", name); 
       navigate('/blog');
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore

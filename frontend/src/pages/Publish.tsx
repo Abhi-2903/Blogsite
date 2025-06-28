@@ -1,6 +1,5 @@
 // pages/Publish.tsx
 import{ useState } from "react";
-import { AppBar } from "../components/AppBar";
 import { TextEditor } from "../components/TextEditor";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -35,7 +34,6 @@ export const Publish = () => {
 
   return (
     <div className="min-h-screen bg-white text-black">
-      <AppBar />
       <div className="max-w-3xl mx-auto px-6 py-8">
         <h1 className="text-4xl font-bold mb-6">Publish Your Blog</h1>
 
