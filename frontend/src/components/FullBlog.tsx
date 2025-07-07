@@ -3,11 +3,14 @@ import { Avatar } from "./BlogCard";
 import {  useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
+import { LikeButton } from './LikeButton';
 
 export const FullBlog = ({ blog }: { blog: Blog }) => {
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
   const isAuthor = blog.authorId === Number(userId);
+
+  
 
   const handleDelete = async () => {
     try {
@@ -56,16 +59,20 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
             <p className="text-base sm:text-lg text-gray-800 mb-6 whitespace-pre-wrap">
               {blog.content}
             </p>
+            <div className="flex">
+
+<LikeButton blogId={blog.id} initialCount={blog.likeCount || 0} />
 
             {isAuthor && (
               <button
-                type="button"
-                onClick={handleDelete}
-                className="text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5"
+              type="button"
+              onClick={handleDelete}
+              className="text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5"
               >
                 Delete Blog
               </button>
             )}
+            </div>
           </div>
 
           {/* Right Sidebar */}

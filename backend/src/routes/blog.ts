@@ -114,6 +114,7 @@ blogRouter.get("/bulk",authMiddleware, async (c) => {
         content: true,
         title: true,
         authorId: true,
+        likeCount: true,
         id: true,
         author:{
           select:{
@@ -145,6 +146,7 @@ blogRouter.get("/:id", authMiddleware,async (c) => {
         id: true,
         title: true,
         content: true,
+        likeCount:true,
         authorId: true,
         publishedAt: true,
         author:{
@@ -189,5 +191,56 @@ blogRouter.delete("/:id", authMiddleware, async (c) => {
     console.error("Deleting blog failed:", e);
     c.status(500);
     return c.json({ msg: "Error deleting blog post" });
+  }
+});
+
+blogRouter.post("/:id/like", authMiddleware, async (c) => {
+  const blogId = parseInt(c.req.param("id"));
+  const userId = Number(c.get("userId"));
+
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  try {
+    const existingLike = await prisma.like.findUnique({
+      where: {
+        userId_blogId: {
+          userId,
+          blogId,
+        },
+      },
+    });
+
+    if (existingLike) {
+   if (existingLike) {
+  c.status(409);
+  return c.json({ msg: "Already liked" });
+}
+    }
+
+    await prisma.like.create({
+      data: {
+        userId,
+        blogId,
+      },
+    });
+
+    await prisma.blog.update({
+      where: { id: blogId },
+      data: {
+        likeCount: { increment: 1 },
+      },
+    });
+
+    const count = await prisma.like.count({
+      where: { blogId },
+    });
+
+    return c.json({ count });
+  } catch (e: any) {
+    console.error("Liking blog failed:", e); // ⛳ FULL error log here
+    c.status(500);
+    return c.json({ msg: "Error liking blog", error: e.message || e });
   }
 });

@@ -7,6 +7,7 @@ export interface Blog {
   authorId: number;
   title: string;
   id: number;
+  likeCount: number;
   publishedAt: string;
   author: {
     name: string;
