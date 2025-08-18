@@ -18,39 +18,44 @@ export const Auth = ({ type }: { type: 'signup' | 'signin' }) => {
   });
 
   async function sendRequest() {
+    if (postInputs.password.length < 6) {
+      alert('Password must be at least 6 characters long');
+      return;
+    }
+
     try {
       const response = await axios.post(
         `${BACKEND_URL}/api/v1/user/${type}`,
         postInputs
       );
       const jwt = response.data.token;
-      const userId = response.data.user.id
-      const name = response.data.user.name
+      const userId = response.data.user.id;
+      const name = response.data.user.name;
       localStorage.setItem('token', jwt);
       localStorage.setItem('userId', userId);
-localStorage.setItem("name", name); 
+      localStorage.setItem('name', name);
       navigate('/blog');
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
     } catch (e: any) {
       alert(e.response?.data?.message || 'Something went wrong');
     }
   }
 
   return (
-    <div className='h-screen flex justify-center flex-col'>
-      <div className='flex justify-center'>
+    <div className="h-screen flex justify-center flex-col">
+      <div className="flex justify-center">
         <div>
-          <div className='text-3xl font-extrabold'>
+          <div className="text-3xl font-extrabold">
             {type === 'signup' ? 'Create an Account' : 'Welcome Back'}
           </div>
-          <div className='text-slate-400'>
+          <div className="text-slate-400 mb-4">
             {type === 'signup'
               ? 'Already have an account?'
               : "Don't have an account?"}
             <Link
               to={type === 'signup' ? '/signin' : '/signup'}
-              className='ml-2 text-blue-500'
+              className="ml-2 text-blue-500"
             >
               {type === 'signup' ? 'Login' : 'Register'}
             </Link>
@@ -58,8 +63,9 @@ localStorage.setItem("name", name);
 
           {type === 'signup' && (
             <LabelledInput
-              label='Name'
-              placeholder='Abhimanyu Chachan'
+              label="Name"
+              placeholder="Abhimanyu Chachan"
+              value={postInputs.name} // ✅ controlled
               onChange={(e) =>
                 setPostInputs({ ...postInputs, name: e.target.value })
               }
@@ -67,25 +73,30 @@ localStorage.setItem("name", name);
           )}
 
           <LabelledInput
-            label='Username'
-            placeholder='example@gmail.com'
+            label="Username"
+            placeholder="example@gmail.com"
+            type="email"
+            value={postInputs.username} // ✅ controlled
             onChange={(e) =>
               setPostInputs({ ...postInputs, username: e.target.value })
             }
           />
 
           <LabelledInput
-            label='Password'
-            placeholder='********'
+            label="Password"
+            placeholder="********"
+            type="password"
+            value={postInputs.password} // ✅ controlled
             onChange={(e) =>
               setPostInputs({ ...postInputs, password: e.target.value })
             }
+            minLengthWarning="Password must be at least 6 characters long"
           />
 
           <button
-            type='button'
+            type="button"
             onClick={sendRequest}
-            className='text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-4'
+            className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-4"
           >
             {type === 'signup' ? 'Sign Up' : 'Sign In'}
           </button>
@@ -99,21 +110,37 @@ interface LabelledInputType {
   label: string;
   placeholder: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  type?: string;
+  className?: string;
+  value?: string;
+  minLengthWarning?: string; // 👈 warning support
 }
 
-function LabelledInput({ label, placeholder, onChange }: LabelledInputType) {
+function LabelledInput({
+  label,
+  placeholder,
+  onChange,
+  type = 'text',
+  className,
+  value = '',
+  minLengthWarning
+}: LabelledInputType) {
   return (
-    <div className='mb-4'>
-      <label className='block mb-2 text-sm font-medium text-green-900'>
+    <div className={`mb-4 ${className || ''}`}>
+      <label className="block mb-2 text-sm font-medium text-green-900">
         {label}
       </label>
       <input
+        value={value}
         onChange={onChange}
-        type='text'
-        className='bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
+        type={type}
+        className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
         placeholder={placeholder}
         required
       />
+      {minLengthWarning && value.length > 0 && value.length < 6 && (
+        <p className="text-red-500 text-sm mt-1">{minLengthWarning}</p>
+      )}
     </div>
   );
 }
