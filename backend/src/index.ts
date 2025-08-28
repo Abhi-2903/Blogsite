@@ -13,7 +13,7 @@ const app = new Hono<{
 
 // Enhanced CORS configuration to handle preflight requests properly
 app.use("/*", cors({
-  origin: "*", // In production, replace with your frontend domain
+  origin: "https://blogsite-seven-beta.vercel.app",
   allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowHeaders: [
     "Content-Type", 
