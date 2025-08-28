@@ -10,7 +10,22 @@ const app = new Hono<{
     JWT_SECRET: string
   }
 }>()
-app.use("/*",cors())
+
+// Enhanced CORS configuration to handle preflight requests properly
+app.use("/*", cors({
+  origin: "*", // In production, replace with your frontend domain
+  allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowHeaders: [
+    "Content-Type", 
+    "Authorization", 
+    "X-Requested-With",
+    "Accept",
+    "Origin"
+  ],
+  exposeHeaders: ["Content-Length", "X-Kuma-Revision"],
+  maxAge: 86400, // Cache preflight for 24 hours
+  credentials: false
+}))
 
 app.route("/api/v1/user", userRouter)
 app.route("/api/v1/blog", blogRouter)
