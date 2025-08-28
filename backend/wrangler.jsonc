@@ -18,8 +18,8 @@
 
   // ✅ Environment variables (not secure, okay for testing or public values)
   "vars": {
-    "DATABASE_URL":"",
-    "JWT_SECRET":  ""
+    "DATABASE_URL":"prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3RfaWQiOjEsInNlY3VyZV9rZXkiOiJza19DektsbHB1Q3FCcXhoUVlJelVUWXQiLCJhcGlfa2V5IjoiMDFLM1I0UUM1Q0dOWURDSkhTNVpFSFQ0SEsiLCJ0ZW5hbnRfaWQiOiJmZjE4YTM1MjExOTYxODJkYmE3NjhjMzZiMjNmODVhMDUxMGQ4YzM0YmQwOGQzOGY4OWJhOGJmNjNiOTQ4OTY2IiwiaW50ZXJuYWxfc2VjcmV0IjoiYjlhOTY4ZDgtMTljNC00YzM2LTgzNzgtODIwZGIzZmZmOTNhIn0.qdHmVpIaj_IoU3xyINfR4XJuwhyLZ2lE25rQy-R-HPA",
+    "JWT_SECRET":  "MY_SECRET_KEY"
   },
 
   // Optional: If using KV, R2, D1, AI, etc.
