@@ -39,7 +39,7 @@ export const LikeButton = ({ blogId, initialCount }: LikeButtonProps) => {
         setLikeCount(res.data.count);
         setLiked(true);
         localStorage.setItem(`liked-${blogId}`, "true");
-        toast.success("Thanks for liking!");
+        toast.success("Thanks for like!");
       } else if (res.status === 409) {
         toast.info("You have already liked this post!");
         setLiked(true);
@@ -52,7 +52,7 @@ export const LikeButton = ({ blogId, initialCount }: LikeButtonProps) => {
       }
     } catch (err) {
       console.error("Like failed:", err);
-      toast.error("Error liking the blog");
+      toast.error("Error like the blog");
     }
   };
 
