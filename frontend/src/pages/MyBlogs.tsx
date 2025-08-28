@@ -31,8 +31,7 @@ export const MyBlogs = () => {
       ></BlogCard>)}
       
       </div>
-      </div>
-  <AdSlot slot="4881032173" />
+      </div><AdSlot adSlot="1076716203" />
       </div>
   )
 }

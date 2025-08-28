@@ -4,6 +4,7 @@ import { TextEditor } from "../components/TextEditor";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
+import AdSlot from "../components/AdSlot";
 
 export const Publish = () => {
   const [title, setTitle] = useState("");
@@ -59,6 +60,7 @@ export const Publish = () => {
           Publish
         </button>
       </div>
+      <AdSlot adSlot="1076716203" />
     </div>
   );
 };

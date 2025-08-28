@@ -60,7 +60,7 @@ export const About = () => {
           </>
         )}
       </div>
-      <AdSlot   slot="4881032173" />
+      <AdSlot adSlot="4881032173" />
       
     </div>
   );

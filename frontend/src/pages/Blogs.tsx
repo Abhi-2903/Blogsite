@@ -32,7 +32,7 @@ export const Blogs = () => {
       
       </div>
       </div>
-      <AdSlot slot="4881032173" />
+      <AdSlot adSlot="1076716203" />
       </div>
   )
 }
