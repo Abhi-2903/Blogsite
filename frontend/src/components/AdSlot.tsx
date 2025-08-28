@@ -1,9 +1,17 @@
+// src/components/AdSlot.tsx
+"use client";
 import { useEffect } from "react";
 
-export default function AdSlot({ slot }) {
+type AdSlotProps = {
+  slot: string; // TypeScript knows slot is a string
+};
+
+export default function AdSlot({ slot }: AdSlotProps) {
   useEffect(() => {
     try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
+      // TypeScript doesn't know adsbygoogle exists on window
+      (window as any).adsbygoogle = (window as any).adsbygoogle || [];
+      (window as any).adsbygoogle.push({});
     } catch (e) {
       console.error("AdSense error", e);
     }
@@ -14,7 +22,7 @@ export default function AdSlot({ slot }) {
       className="adsbygoogle"
       style={{ display: "block" }}
       data-ad-client="ca-pub-2457849009076329"
-      data-ad-slot={4881032173}   // replace with your Ad slot id
+      data-ad-slot={slot} // Use the prop here
       data-ad-format="auto"
       data-full-width-responsive="true"
     />
