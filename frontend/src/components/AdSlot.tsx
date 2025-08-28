@@ -14,7 +14,7 @@ export default function AdSlot({ slot }) {
       className="adsbygoogle"
       style={{ display: "block" }}
       data-ad-client="ca-pub-2457849009076329"
-      data-ad-slot={slot}   // replace with your Ad slot id
+      data-ad-slot={4881032173}   // replace with your Ad slot id
       data-ad-format="auto"
       data-full-width-responsive="true"
     />

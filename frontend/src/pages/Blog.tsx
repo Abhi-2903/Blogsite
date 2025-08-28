@@ -18,7 +18,7 @@ export const Blog = () => {
   return (
     <div>
       {blog && <FullBlog blog={blog} />}
-      <AdSlot   slot="1234567890" />
+      <AdSlot   slot="4881032173" />
     </div>
   )
 }

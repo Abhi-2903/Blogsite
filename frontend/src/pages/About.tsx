@@ -1,4 +1,5 @@
 import { useState } from "react";
+import AdSlot from "../components/AdSlot";
 
 export const About = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -59,6 +60,8 @@ export const About = () => {
           </>
         )}
       </div>
+      <AdSlot   slot="4881032173" />
+      
     </div>
   );
 };
