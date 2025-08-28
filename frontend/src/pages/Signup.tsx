@@ -1,5 +1,6 @@
 import { Quote } from '../components/Quote';
 import { Auth } from '../components/Auth';
+import AdSlot from '../components/AdSlot';
 
 export const Signup = () => {
   return (
@@ -17,6 +18,7 @@ export const Signup = () => {
         </div>
 
       </div>
+      <AdSlot slot="1234567890" />
     </div>
   );
 };

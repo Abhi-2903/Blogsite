@@ -1,6 +1,7 @@
 import { BlogCard } from '../components/BlogCard'
 import { useBlogs } from '../hooks'
 import { BlogsSkeleton } from '../components/BlogsSkeleton'
+import AdSlot from '../components/AdSlot';
 
 export const MyBlogs = () => {
   const {loading,blogs}=useBlogs();
@@ -31,6 +32,7 @@ export const MyBlogs = () => {
       
       </div>
       </div>
+  <AdSlot slot="1234567890" />
       </div>
   )
 }
