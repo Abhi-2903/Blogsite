@@ -2,7 +2,6 @@ import { useBlog } from '../hooks'
 import { useParams } from 'react-router-dom';
 import { FullBlog } from '../components/FullBlog';
 import { BlogSkeleton } from '../components/blogSkeleton';
-import AdSlot from '../components/AdSlot';
 
 export const Blog = () => {
       const {id} = useParams();
@@ -18,7 +17,6 @@ export const Blog = () => {
   return (
     <div>
       {blog && <FullBlog blog={blog} />}
-      <AdSlot adSlot="1076716203" />
     </div>
   )
 }

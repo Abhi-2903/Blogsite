@@ -14,10 +14,9 @@ export interface Blog {
   };
 }
 
-// ✅ useBlog: Fetches one blog
 export const useBlog = ({ id }: { id: string }) => {
   const [loading, setLoading] = useState(true);
-  const [blog, setBlog] = useState<Blog>(); // single blog
+  const [blog, setBlog] = useState<Blog>(); 
 
   useEffect(() => {
     axios
@@ -27,7 +26,7 @@ export const useBlog = ({ id }: { id: string }) => {
         },
       })
       .then((response) => {
-        setBlog(response.data.blog); // ✅ this should be blog, not blogs
+        setBlog(response.data.blog); 
         setLoading(false);
       })
       .catch((err) => {
@@ -42,10 +41,10 @@ export const useBlog = ({ id }: { id: string }) => {
   };
 };
 
-// ✅ useBlogs: Fetches all blogs
+
 export const useBlogs = () => {
   const [loading, setLoading] = useState(true);
-  const [blogs, setBlogs] = useState<Blog[]>([]); // multiple blogs
+  const [blogs, setBlogs] = useState<Blog[]>([]); 
 
   useEffect(() => {
     axios
@@ -55,7 +54,7 @@ export const useBlogs = () => {
         },
       })
       .then((response) => {
-        setBlogs(response.data.blogs); // ✅ this is correct for bulk
+        setBlogs(response.data.blogs);
         setLoading(false);
       })
       .catch((err) => {
@@ -67,5 +66,39 @@ export const useBlogs = () => {
   return {
     loading,
     blogs,
+  };
+};
+export const useMyBlogs = () => {
+  const [loading, setLoading] = useState(true);
+  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [error, setError] = useState<string>("");
+
+  useEffect(() => {
+    axios
+      .get(`${BACKEND_URL}/api/v1/blog/myblogs`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+        },
+      })
+      .then((response) => {
+        setBlogs(response.data.blog);
+        setLoading(false);
+      })
+      .catch((e: any) => {
+        if (e.response) {
+          setError(e.response.data?.message || "Server error occurred");
+        } else if (e.request) {
+          setError("Network error. Please check your connection.");
+        } else {
+          setError("Unexpected error occurred.");
+        }
+        setLoading(false);
+      });
+  }, []);
+
+  return {
+    loading,
+    blogs,
+    error,
   };
 };

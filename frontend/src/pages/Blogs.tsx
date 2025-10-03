@@ -1,7 +1,6 @@
 import { BlogCard } from '../components/BlogCard'
 import { useBlogs } from '../hooks'
 import { BlogsSkeleton } from '../components/BlogsSkeleton'
-import AdSlot from '../components/AdSlot';
 
 export const Blogs = () => {
   const {loading,blogs}=useBlogs();
@@ -32,7 +31,6 @@ export const Blogs = () => {
       
       </div>
       </div>
-      <AdSlot adSlot="1076716203" />
       </div>
   )
 }

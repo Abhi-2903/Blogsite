@@ -28,17 +28,24 @@ export const Auth = ({ type }: { type: 'signup' | 'signin' }) => {
         `${BACKEND_URL}/api/v1/user/${type}`,
         postInputs
       );
+
       const jwt = response.data.token;
       const userId = response.data.user.id;
       const name = response.data.user.name;
+
       localStorage.setItem('token', jwt);
       localStorage.setItem('userId', userId);
       localStorage.setItem('name', name);
+
       navigate('/blog');
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
     } catch (e: any) {
-      alert(e.response?.data?.message || 'Something went wrong');
+      if (e.response) {
+        alert(e.response.data?.message || 'Server error occurred');
+      } else if (e.request) {
+        alert('Network error. Please check your connection.');
+      } else {
+        alert('Unexpected error occurred.');
+      }
     }
   }
 
@@ -65,7 +72,7 @@ export const Auth = ({ type }: { type: 'signup' | 'signin' }) => {
             <LabelledInput
               label="Name"
               placeholder="Abhimanyu Chachan"
-              value={postInputs.name} // ✅ controlled
+              value={postInputs.name}
               onChange={(e) =>
                 setPostInputs({ ...postInputs, name: e.target.value })
               }
@@ -76,7 +83,7 @@ export const Auth = ({ type }: { type: 'signup' | 'signin' }) => {
             label="Username"
             placeholder="example@gmail.com"
             type="email"
-            value={postInputs.username} // ✅ controlled
+            value={postInputs.username}
             onChange={(e) =>
               setPostInputs({ ...postInputs, username: e.target.value })
             }
@@ -86,7 +93,7 @@ export const Auth = ({ type }: { type: 'signup' | 'signin' }) => {
             label="Password"
             placeholder="********"
             type="password"
-            value={postInputs.password} // ✅ controlled
+            value={postInputs.password}
             onChange={(e) =>
               setPostInputs({ ...postInputs, password: e.target.value })
             }
@@ -113,7 +120,7 @@ interface LabelledInputType {
   type?: string;
   className?: string;
   value?: string;
-  minLengthWarning?: string; // 👈 warning support
+  minLengthWarning?: string;
 }
 
 function LabelledInput({
