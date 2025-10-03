@@ -5,50 +5,22 @@
   // Your project name
   "name": "backend",
 
-  // Entry point of your Worker
+  // Entry point of your Worker (must match your `export default app` file)
   "main": "src/index.ts",
 
-  // Required compatibility date (set to today or your deployment date)
+  // Required compatibility date (should be <= today)
   "compatibility_date": "2025-06-08",
 
-  // Optional compatibility flags
-  // "compatibility_flags": [
-  //   "nodejs_compat"
-  // ],
+  // Optional: Enable Node.js APIs like crypto, buffer, etc. (recommended if using Prisma)
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
 
-  // ✅ Environment variables (not secure, okay for testing or public values)
+  // ✅ Local environment variables
   "vars": {
-    "DATABASE_URL":"",
-    "JWT_SECRET":  ""
-  },
+"DATABASE_URL":"",
+   "JWT_SECRET": ""
+  }
 
-  // Optional: If using KV, R2, D1, AI, etc.
-  // "kv_namespaces": [
-  //   {
-  //     "binding": "MY_KV_NAMESPACE",
-  //     "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-  //   }
-  // ],
-  // "r2_buckets": [
-  //   {
-  //     "binding": "MY_BUCKET",
-  //     "bucket_name": "my-bucket"
-  //   }
-  // ],
-  // "d1_databases": [
-  //   {
-  //     "binding": "MY_DB",
-  //     "database_name": "my-database",
-  //     "database_id": ""
-  //   }
-  // ],
-  // "ai": {
-  //   "binding": "AI"
-  // },
-
-  // Optional observability
-  // "observability": {
-  //   "enabled": true,
-  //   "head_sampling_rate": 1
-  // }
+  // Other Cloudflare services (KV, R2, D1) can go here if used later
 }

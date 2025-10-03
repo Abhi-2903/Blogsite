@@ -98,8 +98,9 @@ return c.json({
   }
 });
 
-  } catch (e) {
-    c.status(500);
-    return c.text("An unexpected error occurred during signin");
-  }
+  } catch (e: any) {
+  console.error("Signin error:", e);
+  c.status(500);
+  return c.json({ msg: "Unexpected error", error: e.message });
+}
 });

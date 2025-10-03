@@ -131,6 +131,48 @@ blogRouter.get("/bulk",authMiddleware, async (c) => {
     return c.json({ msg: "Error fetching blogs" });
   }
 });
+//list my blogs
+blogRouter.get("/myblogs", authMiddleware,async (c) => {
+  const userId = c.get("userId");
+  console.log("userId:", userId)
+
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  try {
+    console.log("userId:", userId)
+    const blog = await prisma.blog.findMany({
+      where: { 
+        authorId: Number(userId),
+   
+              },
+      select:{
+        id: true,
+        title: true,
+        content: true,
+        authorId: true,
+        publishedAt: true,
+        author:{
+          select:{
+            name: true
+          }
+        }
+      }
+    });
+
+    if (blog.length==0 ) {
+      c.status(404);
+      return c.json({ msg: "Blogs not found" });
+    }
+
+    return c.json({ blog });
+  } catch (e) {
+    console.error("Fetching blogs failed:", e);
+    c.status(500);
+    return c.json({ msg: "Error fetching blogs " });
+  }
+});
 
 // Get single blog by ID
 blogRouter.get("/:id", authMiddleware,async (c) => {
@@ -170,6 +212,7 @@ blogRouter.get("/:id", authMiddleware,async (c) => {
     return c.json({ msg: "Error fetching blog post" });
   }
 });
+
 // Delete blog post
 blogRouter.delete("/:id", authMiddleware, async (c) => {
   const id = c.req.param("id");
