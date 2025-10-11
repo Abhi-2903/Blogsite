@@ -12,6 +12,8 @@ model User {
   name     String?
   username String  @unique
   password String
+  otp      String
+  otpVerified Boolean
   blogs    Blog[]
   likes    Like[]     
 }

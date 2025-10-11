@@ -30,6 +30,7 @@ if(!success){
 
   try {
     const hashedPassword = await bcrypt.hash(body.password, 10)
+    console.log("Hashed password:", hashedPassword);
     const user = await prisma.user.create({
       data: {
       username: body.username,
