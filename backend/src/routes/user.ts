@@ -4,6 +4,7 @@ import { Hono } from "hono";
 import { sign } from "../jwt";
 //@ts-ignore
 import {signinInput, signupInput} from "@abhimanyu-2903/medium-common"
+import bcrypt from "bcryptjs";
 export const userRouter = new Hono<{
   Bindings: {
     DATABASE_URL: string;
@@ -14,7 +15,7 @@ export const userRouter = new Hono<{
 userRouter.post("/signup", async (c) => {
   const body = await c.req.json();
   //@ts-ignore
-  console.log("Signup attempt with username:", body.username); // Debug log
+  console.log("Signup attempt with username:", body.username); 
   const {success}= signupInput.safeParse(body)
 if(!success){
   c.status(411);
@@ -28,26 +29,27 @@ if(!success){
   }).$extends(withAccelerate());
 
   try {
+    const hashedPassword = await bcrypt.hash(body.password, 10)
     const user = await prisma.user.create({
       data: {
-        username: body.username,
-        password: body.password,
-        name: body.name,
+      username: body.username,
+      password: hashedPassword,
+      name: body.name,
       },
     });
     const jwt = await sign(
       {
-        id: user.id,
+      id: user.id,
       },
       c.env.JWT_SECRET
     );
-return c.json({
-  token: jwt,
-  user: {
-    id: user.id,
-    name:user.name
-  }
-});
+    return c.json({
+      token: jwt,
+      user: {
+      id: user.id,
+      name: user.name
+      }
+    });
 
   } catch (e: any) {
     if (e.code === "P2002") {
@@ -77,12 +79,24 @@ if(!success){
     const user = await prisma.user.findFirst({
       where: {
         username: body.username,
-        password: body.password,
       },
     });
     if (!user) {
       c.status(403);
       return c.text("Invalid credentials");
+    }
+
+    let validUser = false;
+    if(user.password.startsWith("$2b$")){
+      validUser = await bcrypt.compare(body.password, user.password)
+    }
+    else{
+      validUser= body.password ===user.password
+    }
+
+    if(!validUser){
+      c.status(403);
+      return c.text("invalid password")
     }
     const jwt = await sign(
       {
@@ -96,6 +110,7 @@ return c.json({
     id: user.id,
     name: user.name
   }
+  
 });
 
   } catch (e: any) {
