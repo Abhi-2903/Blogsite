@@ -13,7 +13,7 @@ model User {
   name     String?
   username String  @unique
   password String
-  otp      String  @default("")
+  otp      String?
   otpVerified Boolean @default(false)
   blogs    Blog[]
   likes    Like[]     
