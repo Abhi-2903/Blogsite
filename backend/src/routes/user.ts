@@ -2,6 +2,8 @@ import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { Hono } from "hono";
 import { sign } from "../jwt";
+import 'dotenv/config';
+
 //@ts-ignore
 import {signinInput, signupInput} from "@abhimanyu-2903/medium-common"
 import bcrypt from "bcryptjs";

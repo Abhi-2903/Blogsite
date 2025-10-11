@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "otp" TEXT NOT NULL DEFAULT '',
+ADD COLUMN     "otpVerified" BOOLEAN NOT NULL DEFAULT false;

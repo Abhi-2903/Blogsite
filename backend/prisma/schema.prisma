@@ -1,3 +1,4 @@
+
 generator client {
   provider   = "prisma-client-js"
   engineType = "edge"
@@ -12,8 +13,8 @@ model User {
   name     String?
   username String  @unique
   password String
-  otp      String
-  otpVerified Boolean
+  otp      String  @default("")
+  otpVerified Boolean @default(false)
   blogs    Blog[]
   likes    Like[]     
 }
