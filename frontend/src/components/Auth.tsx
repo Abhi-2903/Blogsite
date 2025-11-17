@@ -8,6 +8,9 @@ import React, { useState, ChangeEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BACKEND_URL } from '../config';
 
+// ADD THIS
+import { Turnstile } from "@marsidev/react-turnstile";
+
 export const Auth = ({ type }: { type: 'signup' | 'signin' }) => {
   const navigate = useNavigate();
 
@@ -17,16 +20,26 @@ export const Auth = ({ type }: { type: 'signup' | 'signin' }) => {
     password: ''
   });
 
+  const [tsToken, setTsToken] = useState("");
+
   async function sendRequest() {
     if (postInputs.password.length < 6) {
       alert('Password must be at least 6 characters long');
       return;
     }
 
+    if (!tsToken) {
+      alert("Please verify you are human.");
+      return;
+    }
+
     try {
       const response = await axios.post(
         `${BACKEND_URL}/api/v1/user/${type}`,
-        postInputs
+        {
+          ...postInputs,
+          turnstileToken: tsToken 
+        }
       );
 
       const jwt = response.data.token;
@@ -71,7 +84,7 @@ export const Auth = ({ type }: { type: 'signup' | 'signin' }) => {
           {type === 'signup' && (
             <LabelledInput
               label="Name"
-              placeholder="Abhimanyu Chachan"
+              placeholder="John Doe"
               value={postInputs.name}
               onChange={(e) =>
                 setPostInputs({ ...postInputs, name: e.target.value })
@@ -100,6 +113,14 @@ export const Auth = ({ type }: { type: 'signup' | 'signin' }) => {
             minLengthWarning="Password must be at least 6 characters long"
           />
 
+          {}
+          <div className="my-4">
+            <Turnstile
+              siteKey="0x4AAAAAACBXtSjUVSPhojZE" 
+              onSuccess={(token) => setTsToken(token)}
+            />
+          </div>
+
           <button
             type="button"
             onClick={sendRequest}
@@ -107,6 +128,7 @@ export const Auth = ({ type }: { type: 'signup' | 'signin' }) => {
           >
             {type === 'signup' ? 'Sign Up' : 'Sign In'}
           </button>
+
         </div>
       </div>
     </div>
