@@ -20,7 +20,7 @@ export const Auth = ({ type }: { type: 'signup' | 'signin' }) => {
     password: ''
   });
 
-  const [tsToken, setTsToken] = useState("");
+  const [token, setToken] = useState("");
 
   async function sendRequest() {
     if (postInputs.password.length < 6) {
@@ -28,7 +28,7 @@ export const Auth = ({ type }: { type: 'signup' | 'signin' }) => {
       return;
     }
 
-    if (!tsToken) {
+    if (!token) {
       alert("Please verify you are human.");
       return;
     }
@@ -38,7 +38,7 @@ export const Auth = ({ type }: { type: 'signup' | 'signin' }) => {
         `${BACKEND_URL}/api/v1/user/${type}`,
         {
           ...postInputs,
-          turnstileToken: tsToken 
+          turnstileToken: token 
         }
       );
 
@@ -117,7 +117,7 @@ export const Auth = ({ type }: { type: 'signup' | 'signin' }) => {
           <div className="my-4">
             <Turnstile
               siteKey="0x4AAAAAACBXtSjUVSPhojZE" 
-              onSuccess={(token) => setTsToken(token)}
+              onSuccess={(token) => setToken(token)}
             />
           </div>
 
